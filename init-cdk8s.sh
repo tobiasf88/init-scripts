@@ -1,6 +1,6 @@
 #!/bin/bash
-mkdir temp
-cd temp
+mkdir $1
+cd $1
 cdk8s init typescript-app
 rm -rf package-lock.json
 
@@ -141,12 +141,24 @@ echo "
 };" >> .eslintrc.js
 
 sed -i.bak 's/npm run/yarn/g' package.json
-rm -rf package.json.bak
+sed -i.bak 's/main.js/src\/main.js/g' package.json
+sed -i.bak 's/main.ts/src\/main.ts/g' package.json
 sed -i.bak 's/"test": "jest",/"test": "jest",\n    "lint":"eslint .",\n    "lint:fix": "eslint . --fix",/g' package.json
+sed -i.bak "s/'.\/main'/'..\/src\/main'/g" main.test.ts
+rm -rf main.test.ts.bak
 rm -rf package.json.bak
-mv .* ../
-mv * ../
-cd ..
-rm -rf temp
+mkdir src
+mkdir test
+for x in *test*; do
+   if ! [ -d "$x" ]; then
+     mv -- "$x" test/
+   fi
+done
+
+for x in *main*; do
+   if ! [ -d "$x" ]; then
+     mv -- "$x" src/
+   fi
+done
 
 
