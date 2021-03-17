@@ -161,4 +161,5 @@ for x in *main*; do
    fi
 done
 
-
+yarn lint:fix
+yarn test -u
