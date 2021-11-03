@@ -144,6 +144,7 @@ sed -i.bak 's/npm run/yarn/g' package.json
 sed -i.bak 's/main.js/src\/main.js/g' package.json
 sed -i.bak 's/main.ts/src\/main.ts/g' package.json
 sed -i.bak 's/"test": "jest",/"test": "jest",\n    "lint":"eslint .",\n    "lint:fix": "eslint . --fix",/g' package.json
+echo "!.eslintrc.js" >> .gitignore
 sed -i.bak "s/'.\/main'/'..\/src\/main'/g" main.test.ts
 sed -i.bak 's/main.js/.\/src\/main.js/g' cdk8s.yaml
 rm -rf main.test.ts.bak
